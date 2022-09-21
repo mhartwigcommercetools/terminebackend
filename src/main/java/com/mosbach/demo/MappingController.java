@@ -80,34 +80,6 @@ public class MappingController {
 
         String outText = "";
 
-        if (alexaRO.getRequest().getType().equalsIgnoreCase("LaunchRequest")) {
-            outText = outText + "Welcome to the Mosbach Task Organizer. ";
-            alexaRO = prepareResponse(alexaRO, outText, false);
-        }
-        else {
-            if (alexaRO.getRequest().getType().equalsIgnoreCase("IntentRequest") &&
-                    (alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("TaskReadIntent"))) {
-                try
-                {
-                    TaskList taskList = new TaskList(
-                            new Student("me", "ignore")
-                    );
-                    taskList.setTasks();
-
-                    outText = outText + "You have to do the following tasks. ";
-                    int i = 1;
-                    for (Task temp : taskList.getTasks()) {
-                        outText = outText + "Number " + i + " . ";
-                        outText = outText + temp.getName() + ", priority " + temp.getPriority() + " . ";
-                        i++;
-                    }
-                }
-                catch(Exception e) {
-                    outText = "Unfortunately, we cannot reach heroku. Our REST server is not responding. ";
-                }
-                alexaRO = prepareResponse(alexaRO, outText, true);
-            }
-        }
 
         return alexaRO;
     }

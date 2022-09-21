@@ -20,10 +20,10 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	implementation 'commons-dbcp:commons-dbcp:1.4'
-	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
-	
-	compile group: 'com.amazonaws', name: 'aws-java-sdk-sqs', version: '1.11.880'
-	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+
+	implementation group: 'com.amazonaws', name: 'aws-java-sdk-sqs', version: '1.11.880'
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 }
 
 test {

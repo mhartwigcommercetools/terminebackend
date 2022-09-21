@@ -41,34 +41,7 @@ public class PostgresTaskManagerImpl implements TaskManager  {
     public Collection<Task> getAllTasks(Student student) {
 
         List<Task> tasks = new ArrayList<>();
-        Statement stmt = null;
-        Connection connection = null;
 
-        try {
-        	connection = basicDataSource.getConnection();
-        	stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM tasks");
-            while (rs.next()) {
-                tasks.add(
-                        new Task(
-                                rs.getString("name"),
-                                rs.getString("description"),
-                                rs.getInt("priority")
-                        )
-                );  
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } 
-
-        try {
-        	stmt.close();    
-            connection.close();  
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } 
-        
-        
         return tasks;
     }
 
@@ -78,27 +51,6 @@ public class PostgresTaskManagerImpl implements TaskManager  {
         Statement stmt = null;
         Connection connection = null;
 
-        try {
-        	connection = basicDataSource.getConnection();
-        	stmt = connection.createStatement();
-            String udapteSQL = "INSERT into tasks (name, description, priority) VALUES (" +
-                    "'" + task.getName() + "', " +
-                    "'" + task.getDescription() + "', " +
-                    "'" + task.getPriority() + "')";
-
-            stmt.executeUpdate(udapteSQL);
-            
-            stmt.close();
-            connection.close();
-            } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-        	stmt.close();    
-            connection.close();  
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } 
 
     }
 
@@ -109,31 +61,6 @@ public class PostgresTaskManagerImpl implements TaskManager  {
         Statement stmt = null;
         Connection connection = null;
 
-        try {
-        	connection = basicDataSource.getConnection();
-        	stmt = connection.createStatement();
-
-            // String dropTable = "DROP TABLE tasks";
-
-            String createTable = "CREATE TABLE tasks (" +
-                    "id SERIAL PRIMARY KEY, " +
-                    "name varchar(100) NOT NULL, " +
-                    "description varchar(250) NOT NULL, " +
-                    "priority int NOT NULL)";
-
-            // stmt.executeUpdate(dropTable);
-
-            stmt.executeUpdate(createTable);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-        	stmt.close();    
-            connection.close();  
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } 
 
     }
 

@@ -37,27 +37,6 @@ public class PropertyFileTaskManagerImpl implements TaskManager {
         // I am ignoring the student and retrieve all tasks from the file
 
         List<Task> tasks = new ArrayList<>();
-        Properties properties = new Properties();
-        int i = 1;
-        try {
-                properties.load(new FileInputStream(fileName));
-                while (properties.containsKey("Task." + i + ".name")) {
-                    tasks.add(
-                            new Task(
-                                    properties.getProperty("Task." + i + ".name"),
-                                    properties.getProperty("Task." + i + ".description"),
-                                    Integer.parseInt(
-                                            properties.getProperty("Task." + i + ".priority")
-                                    )
-
-                            )
-                    );
-                    i++;
-                }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
 
         return tasks;
     }
@@ -75,20 +54,6 @@ public class PropertyFileTaskManagerImpl implements TaskManager {
         // I am ignoring the student and storing all tasks to the file
 
         Properties properties = new Properties();
-        final AtomicLong counter = new AtomicLong();
-        counter.set(0);
-
-        tasks.forEach( t -> {
-                        properties.setProperty("Task." + counter.incrementAndGet() + ".name", t.getName());
-                        properties.setProperty("Task." + counter.get() + ".description", t.getDescription());
-                        properties.setProperty("Task." + counter.get() + ".priority", "" + t.getPriority());
-        });
-        try {
-            properties.store(new FileOutputStream(fileName), null);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 
